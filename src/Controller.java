@@ -158,6 +158,28 @@ public class Controller {
 	public SortedMap<Double, Set<Person>> getCentralityRecommendations(int id) throws UserNotFoundException {
 		SortedMap<Double, Set<Person>> recommendations = new TreeMap<Double, Set<Person>>(new FriendRecommendationComparator());
 		Person p = this.getPerson(id);
+		Set<Person> friends = p.getFriends();
+		
+		for (Person friend : friends) {
+			// Get all friends from p is not friends with
+			Set<Person> fr = friend.getFriends();
+			fr.removeAll(friends);
+
+			for (Person f : fr) {
+				if (f.equals(p)) { continue; }
+				
+				Double cent = centrality.get(f);
+				if (!recommendations.containsKey(cent)) {
+					Set<Person> set = new HashSet<Person>();
+					set.add(f);
+					recommendations.put(cent, set);
+				}
+				else {
+					Set<Person> set = recommendations.get(cent);
+					set.add(f);
+				}
+			}
+		}
 		
 		return recommendations;
 	}
