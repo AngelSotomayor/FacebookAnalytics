@@ -6,20 +6,27 @@ public class Controller {
 	
 	private Reader r;
 	private Map<Integer, Person> graph;
-	private int userId;
+
 	
-	public Controller(String filepath, int userId) {
+	public Controller(String filepath) throws UserNotFoundException {
 		graph = new HashMap<Integer, Person>();
 		this.r = new Reader(filepath, this.graph);
-		this.userId = userId;
 	}
 
 	/**
 	 * 
 	 * @param id
 	 * @return Person based on id
+	 * @throws UserNotFoundException 
 	 */
-	public Person getPerson(int id) {
-		return this.graph.get(id);
+	public Person getNode(int id) throws UserNotFoundException {
+		Person temp = this.graph.get(id);
+		if (temp == null) {
+			System.out.println("The input user id does not exist in the graph");
+			throw new UserNotFoundException ();
+		}
+		return temp;
 	}
+	
+
 }

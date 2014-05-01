@@ -13,7 +13,6 @@ import java.util.Map;
 public class Reader {
 
 	public Reader(String path, Map<Integer, Person> graph) {
-		graph = new HashMap<Integer, Person>();
 
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(path));
