@@ -1,8 +1,11 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 
 public class Controller {
@@ -31,7 +34,7 @@ public class Controller {
 		return temp;
 	}
 	
-	public Map<Double, List<Person>> getFriendRecommendations(int id) throws UserNotFoundException {
+	public SortedMap<Double, List<Person>> getFriendRecommendations(int id) throws UserNotFoundException {
 		Map<Person, Double> personMap = new HashMap<Person, Double>();
 		Person p = this.getPerson(id);
 		Set<Person> friends = p.getFriends();
@@ -65,13 +68,13 @@ public class Controller {
 			personMap.put(key, value / numberOfFriends);
 		}
 		
-		Map<Double, List<Person>> recommendations = this.convertFriendRecommendations(personMap);
+		SortedMap<Double, List<Person>> recommendations = this.convertFriendRecommendations(personMap);
 		
 		return recommendations;
 	}
 	
-	private Map<Double, List<Person>> convertFriendRecommendations(Map<Person, Double> personMap) {
-		Map<Double, List<Person>> recommendations = new HashMap<Double, List<Person>>();
+	private SortedMap<Double, List<Person>> convertFriendRecommendations(Map<Person, Double> personMap) {
+		SortedMap<Double, List<Person>> recommendations = new TreeMap<Double, List<Person>>();
 		Set<Person> keySet = personMap.keySet();
 		for (Person key : keySet) {
 			Double value = personMap.get(key);
