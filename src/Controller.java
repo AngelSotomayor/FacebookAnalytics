@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,7 @@ public class Controller {
 	private Map<Integer, Person> graph;
 
 	
-	public Controller(String filepath) {
+	public Controller(String filepath) throws IOException {
 		graph = new HashMap<Integer, Person>();
 		this.r = new Reader(filepath, this.graph);
 	}
@@ -29,7 +30,7 @@ public class Controller {
 		Person temp = this.graph.get(id);
 		if (temp == null) {
 			System.out.println("The input user id does not exist in the graph");
-			throw new UserNotFoundException();
+			throw new UserNotFoundException ();
 		}
 		return temp;
 	}
