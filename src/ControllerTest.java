@@ -1,6 +1,10 @@
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.junit.Before;
@@ -55,6 +59,20 @@ public class ControllerTest {
 		Person p1 = facebookController.getPerson(1);
 		
 		assertTrue(p1.getFriends().contains(p0));
+	}
+	
+	@Test
+	public void friendRecommendationsSmallGraphUser0() throws UserNotFoundException {
+		Map<Double, List<Person>> map = new HashMap<Double, List<Person>>();
+		List<Person> l0 = new ArrayList<Person>();
+		l0.add(smallController.getPerson(4));
+		map.put(0.5, l0);
+	
+		List<Person> l1 = new ArrayList<Person>();
+		l1.add(smallController.getPerson(2));
+		map.put(1.0, l1);
+		
+		assertEquals(map, smallController.getFriendRecommendations(0));
 	}
 
 }
