@@ -75,7 +75,7 @@ public class Controller {
 	}
 	
 	private SortedMap<Double, List<Person>> convertFriendRecommendations(Map<Person, Double> personMap) {
-		SortedMap<Double, List<Person>> recommendations = new TreeMap<Double, List<Person>>();
+		SortedMap<Double, List<Person>> recommendations = new TreeMap<Double, List<Person>>(new FriendRecommendationComparator());
 		Set<Person> keySet = personMap.keySet();
 		for (Person key : keySet) {
 			Double value = personMap.get(key);
@@ -91,6 +91,15 @@ public class Controller {
 		}
 		
 		return recommendations;
+	}
+	
+	class FriendRecommendationComparator implements Comparator<Double> {
+
+		@Override
+		public int compare(Double o1, Double o2) {
+			return o1.compareTo(o2);
+		}
+		
 	}
 
 }

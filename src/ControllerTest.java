@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -63,7 +65,7 @@ public class ControllerTest {
 	
 	@Test
 	public void friendRecommendationsSmallGraphUser0() throws UserNotFoundException {
-		Map<Double, List<Person>> map = new HashMap<Double, List<Person>>();
+		SortedMap<Double, List<Person>> map = new TreeMap<Double, List<Person>>();
 		List<Person> l0 = new ArrayList<Person>();
 		l0.add(smallController.getPerson(4));
 		map.put(0.5, l0);
