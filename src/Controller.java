@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -30,7 +31,7 @@ public class Controller {
 			Person p = entry.getValue();
 			this.centrality.put(p, new Double(0.0));
 		}
-		calculateCentrality();
+//		calculateCentrality();
 	}
 
 	/**
@@ -105,7 +106,7 @@ public class Controller {
 		
 	}
 	
-	public SortedMap<Double, List<Person>> getFriendRecommendations(int id) throws UserNotFoundException {
+	public SortedMap<Double, Set<Person>> getFriendRecommendations(int id) throws UserNotFoundException {
 		Map<Person, Double> personMap = new HashMap<Person, Double>();
 		Person p = this.getPerson(id);
 		Set<Person> friends = p.getFriends();
@@ -139,24 +140,24 @@ public class Controller {
 			personMap.put(key, value / numberOfFriends);
 		}
 		
-		SortedMap<Double, List<Person>> recommendations = this.convertFriendRecommendations(personMap);
+		SortedMap<Double, Set<Person>> recommendations = this.convertFriendRecommendations(personMap);
 		
 		return recommendations;
 	}
 	
-	private SortedMap<Double, List<Person>> convertFriendRecommendations(Map<Person, Double> personMap) {
-		SortedMap<Double, List<Person>> recommendations = new TreeMap<Double, List<Person>>(new FriendRecommendationComparator());
+	private SortedMap<Double, Set<Person>> convertFriendRecommendations(Map<Person, Double> personMap) {
+		SortedMap<Double, Set<Person>> recommendations = new TreeMap<Double, Set<Person>>(new FriendRecommendationComparator());
 		Set<Person> keySet = personMap.keySet();
 		for (Person key : keySet) {
 			Double value = personMap.get(key);
 			if (!recommendations.containsKey(value)) {
-				List<Person> l = new ArrayList<Person>();
+				Set<Person> l = new HashSet<Person>();
 				l.add(key);
 				recommendations.put(value, l);
 			}
 			else {
-				List<Person> l = recommendations.get(value);
-				l.add(key);
+				Set<Person> s = recommendations.get(value);
+				s.add(key);
 			}
 		}
 		

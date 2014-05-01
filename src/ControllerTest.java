@@ -69,16 +69,31 @@ public class ControllerTest {
 	
 	@Test
 	public void friendRecommendationsSmallGraphUser0() throws UserNotFoundException {
-		SortedMap<Double, List<Person>> map = new TreeMap<Double, List<Person>>();
-		List<Person> l0 = new ArrayList<Person>();
+		SortedMap<Double, Set<Person>> map = new TreeMap<Double, Set<Person>>();
+		Set<Person> l0 = new HashSet<Person>();
 		l0.add(smallController.getPerson(4));
 		map.put(0.5, l0);
 	
-		List<Person> l1 = new ArrayList<Person>();
+		Set<Person> l1 = new HashSet<Person>();
 		l1.add(smallController.getPerson(2));
 		map.put(1.0, l1);
 		
 		assertEquals(map, smallController.getFriendRecommendations(0));
+	}
+	
+	@Test
+	public void friendRecommendationsMediumGraphUser1() throws UserNotFoundException {
+		SortedMap<Double, Set<Person>> map = new TreeMap<Double, Set<Person>>();
+		Set<Person> l0 = new HashSet<Person>();
+		l0.add(mediumController.getPerson(8));
+		l0.add(mediumController.getPerson(4));
+		map.put(0.25, l0);
+	
+		Set<Person> l1 = new HashSet<Person>();
+		l1.add(mediumController.getPerson(5));
+		map.put(0.5, l1);
+		
+		assertEquals(map, mediumController.getFriendRecommendations(1));
 	}
 	
 	@Test
