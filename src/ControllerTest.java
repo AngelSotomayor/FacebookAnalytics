@@ -96,6 +96,11 @@ public class ControllerTest {
 		assertEquals(map, mediumController.getFriendRecommendations(1));
 	}
 	
+//	@Test
+//	public void friendRecommendationsFacebookGraphUser0() throws UserNotFoundException {	
+//		System.out.println(facebookController.getFriendRecommendations(0));
+//	}
+	
 	@Test
 	public void clusterCoefficientTest() {
 		try {
