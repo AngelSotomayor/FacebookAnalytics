@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -82,6 +83,26 @@ public class ControllerTest {
 	}
 	
 	@Test
+	public void clusterCoefficientTest() {
+		try {
+			assertEquals(0.3333333333, clusteringController.getClusteringCoefficient(1), 0.000001);
+			assertEquals(0.6666666666, clusteringController.getClusteringCoefficient(5), 0.000001);
+			assertEquals(0, clusteringController.getClusteringCoefficient(2), 0.000001);
+			assertEquals(1, clusteringController.getClusteringCoefficient(3), 0.000001);
+			assertEquals(1, clusteringController.getClusteringCoefficient(4), 0.000001);
+		} 
+		catch (UserNotFoundException e) {
+			assertTrue(false);
+		}
+	}
+	
+//	@Test
+//	public void calculateCentrality() {
+//		clusteringController.calculateCentrality();
+//		for (Entry<Person, Double> e : clusteringController.centrality.entrySet()) {
+//			System.out.println (e.getKey() + " -> " + e.getValue());
+//		}
+
 	public void friendRecommendationsMediumGraphUser1() throws UserNotFoundException {
 		SortedMap<Double, Set<Person>> map = new TreeMap<Double, Set<Person>>();
 		Set<Person> l0 = new HashSet<Person>();
@@ -101,19 +122,6 @@ public class ControllerTest {
 //		System.out.println(facebookController.getTriadicRecommendations(0));
 //	}
 	
-	@Test
-	public void clusterCoefficientTest() {
-		try {
-			assertEquals(0.3333333333, clusteringController.getClusteringCoefficient(1), 0.000001);
-			assertEquals(0.6666666666, clusteringController.getClusteringCoefficient(5), 0.000001);
-			assertEquals(0, clusteringController.getClusteringCoefficient(2), 0.000001);
-			assertEquals(1, clusteringController.getClusteringCoefficient(3), 0.000001);
-			assertEquals(1, clusteringController.getClusteringCoefficient(4), 0.000001);
-		} 
-		catch (UserNotFoundException e) {
-			assertTrue(false);
-		}
-	}
 
 
 }
