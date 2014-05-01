@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,7 +9,7 @@ public class Controller {
 	private Map<Integer, Person> graph;
 
 	
-	public Controller(String filepath) throws UserNotFoundException {
+	public Controller(String filepath) throws IOException {
 		graph = new HashMap<Integer, Person>();
 		this.r = new Reader(filepath, this.graph);
 	}
