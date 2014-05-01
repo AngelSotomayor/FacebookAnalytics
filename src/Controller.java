@@ -8,7 +8,7 @@ public class Controller {
 	private Map<Integer, Person> graph;
 
 	
-	public Controller(String filepath) throws UserNotFoundException {
+	public Controller(String filepath) {
 		graph = new HashMap<Integer, Person>();
 		this.r = new Reader(filepath, this.graph);
 	}
@@ -23,7 +23,7 @@ public class Controller {
 		Person temp = this.graph.get(id);
 		if (temp == null) {
 			System.out.println("The input user id does not exist in the graph");
-			throw new UserNotFoundException ();
+			throw new UserNotFoundException();
 		}
 		return temp;
 	}
