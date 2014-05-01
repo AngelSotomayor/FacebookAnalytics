@@ -20,6 +20,7 @@ public class Controller {
 	private Reader r;
 	private Map<Integer, Person> graph;
 	private Map<Person, Double> centrality; 
+	private boolean centralityCalculated = false;
 
 	
 	public Controller(String filepath) throws IOException {
@@ -30,7 +31,7 @@ public class Controller {
 			Person p = entry.getValue();
 			this.centrality.put(p, new Double(0.0));
 		}
-		calculateCentrality();
+//		calculateCentrality();
 	}
 
 	/**
@@ -76,31 +77,76 @@ public class Controller {
 	}
 	
 	private void calculateCentrality() {
-		for (Entry<Integer, Person> entry : this.graph.entrySet()) {
-			Person source = entry.getValue();
-			Stack<Person> stack = new Stack<Person>();
-			List<Person> list = new ArrayList<Person>();
-			Map<Person, Double> sigma = new HashMap<Person, Double>();
-			Map<Person, Double> d = new HashMap<Person, Double>();
-			Queue<Person> q = new ArrayDeque<Person>();
-			
-			for (Entry<Integer, Person> entry2 : this.graph.entrySet()) {
-				Person p = entry2.getValue();
-				if(p.equals(source)) {
-					sigma.put(p, new Double(1));
-					d.put(p, new Double(0));
+		if (! this.centralityCalculated) {
+			for (Entry<Integer, Person> entry : this.graph.entrySet()) {
+				Person source = entry.getValue();
+				Stack<Person> stack = new Stack<Person>();
+				Map<Person, List<Person>> list = new HashMap<Person, List<Person>>();
+				Map<Person, Double> sigma = new HashMap<Person, Double>();
+				Map<Person, Double> d = new HashMap<Person, Double>();
+				Queue<Person> q = new ArrayDeque<Person>();
+				
+				for (Entry<Integer, Person> entry2 : this.graph.entrySet()) {
+					Person p = entry2.getValue();
+					if(p.equals(source)) {
+						sigma.put(p, new Double(1));
+						d.put(p, new Double(0));
+					}
+					else {
+						sigma.put(p, new Double(0));
+						d.put(p, new Double(-1));
+					}
 				}
-				else {
-					sigma.put(p, new Double(0));
-					d.put(p, new Double(-1));
+				
+				q.offer(source);
+				
+				while (! q.isEmpty()) {
+					Person x = q.poll();
+					stack.push(x);
+					for (Person n : x.getFriends()) {
+						if(d.get(n) < 0.0) {
+							q.offer(n);
+							d.put(n, new Double (1 + d.get(x)));
+						}
+						
+						if(d.get(n) == (d.get(x) + 1)) {
+							double y = sigma.get(n) + sigma.get(x);
+							sigma.put(n, y);
+							
+							List<Person> get = list.get(n);
+							if (get == null) {
+								get = new ArrayList<Person>();
+							}
+							get.add(x);
+							list.put(n, get);
+						}
+					}
+				}
+				
+				Map<Person, Double> delta = new HashMap<Person, Double>();
+				
+				for (Entry<Integer, Person> entry3 : this.graph.entrySet()) {
+					delta.put(entry3.getValue(), new Double(0));
+				}
+				
+				while (! stack.isEmpty()) {
+					Person w = stack.pop();
+					List<Person> get = list.get(w);
+					
+					for (Person v : get) {
+						double deltaV = delta.get(v);
+						deltaV = (deltaV) + ((sigma.get(v) / sigma.get(w)) * (1 + delta.get(w)));
+						delta.put(v, deltaV);
+						if (! w.equals(source)) {
+							double centralityw = this.centrality.get(w);
+							centralityw += delta.get(w);
+							this.centrality.put(w, centralityw);
+						}
+					}
 				}
 			}
 			
-			q.offer(source);
-			
-			while (! q.isEmpty()) {
-				Person x = q.poll();
-			}
+			this.centralityCalculated = true;
 		}
 		
 	}
