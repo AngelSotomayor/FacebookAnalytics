@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.junit.Before;
@@ -17,14 +18,14 @@ public class ControllerTest {
 	Controller smallController;
 	Controller mediumController;
 	Controller facebookController;
-//	Controller clusteringController;
+	Controller clusteringController;
 
 	@Before
 	public void setUp() throws Exception {
 		smallController = new Controller("small_graph.txt");
 		mediumController = new Controller("medium_graph.txt");
 		facebookController = new Controller("facebook_combined.txt");
-//		clusteringController = new Controller("clustering_coefficient_graph");
+		clusteringController = new Controller("clustering_coefficient_graph");
 	}
 
 	@Test
@@ -79,17 +80,25 @@ public class ControllerTest {
 		assertEquals(map, smallController.getFriendRecommendations(0));
 	}
 	
+	@Test
+	public void clusterCoefficientTest() {
+		try {
+			assertEquals(0.3333333333, clusteringController.getClusteringCoefficient(1), 0.000001);
+			assertEquals(0.6666666666, clusteringController.getClusteringCoefficient(5), 0.000001);
+			assertEquals(0, clusteringController.getClusteringCoefficient(2), 0.000001);
+			assertEquals(1, clusteringController.getClusteringCoefficient(3), 0.000001);
+			assertEquals(1, clusteringController.getClusteringCoefficient(4), 0.000001);
+		} 
+		catch (UserNotFoundException e) {
+			assertTrue(false);
+		}
+	}
+	
 //	@Test
-//	public void clusterCoefficientTest() {
-//		try {
-//			assertEquals(0.3333333333, clusteringController.getClusteringCoefficient(1), 0.000001);
-//			assertEquals(0.6666666666, clusteringController.getClusteringCoefficient(5), 0.000001);
-//			assertEquals(0, clusteringController.getClusteringCoefficient(2), 0.000001);
-//			assertEquals(1, clusteringController.getClusteringCoefficient(3), 0.000001);
-//			assertEquals(1, clusteringController.getClusteringCoefficient(4), 0.000001);
-//		} 
-//		catch (UserNotFoundException e) {
-//			assertTrue(false);
+//	public void calculateCentrality() {
+//		clusteringController.calculateCentrality();
+//		for (Entry<Person, Double> e : clusteringController.centrality.entrySet()) {
+//			System.out.println (e.getKey() + " -> " + e.getValue());
 //		}
 //	}
 

@@ -132,6 +132,9 @@ public class Controller {
 				while (! stack.isEmpty()) {
 					Person w = stack.pop();
 					List<Person> get = list.get(w);
+					if (get == null) {
+						get = new ArrayList<Person>();
+					}
 					
 					for (Person v : get) {
 						double deltaV = delta.get(v);
