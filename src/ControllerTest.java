@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,17 +13,20 @@ import java.util.TreeMap;
 import org.junit.Before;
 import org.junit.Test;
 
+	
 
 public class ControllerTest {
 	Controller smallController;
 	Controller mediumController;
 	Controller facebookController;
+	Controller clusteringController;
 
 	@Before
 	public void setUp() throws Exception {
 		smallController = new Controller("small_graph.txt");
 		mediumController = new Controller("medium_graph.txt");
 		facebookController = new Controller("facebook_combined.txt");
+		clusteringController = new Controller("clustering_coefficient_graph");
 	}
 
 	@Test
@@ -75,6 +79,20 @@ public class ControllerTest {
 		map.put(1.0, l1);
 		
 		assertEquals(map, smallController.getFriendRecommendations(0));
+	}
+	
+	@Test
+	public void clusterCoefficientTest() {
+		try {
+			assertEquals(0.3333333333, clusteringController.getClusteringCoefficient(1), 0.000001);
+			assertEquals(0.6666666666, clusteringController.getClusteringCoefficient(5), 0.000001);
+			assertEquals(0, clusteringController.getClusteringCoefficient(2), 0.000001);
+			assertEquals(1, clusteringController.getClusteringCoefficient(3), 0.000001);
+			assertEquals(1, clusteringController.getClusteringCoefficient(4), 0.000001);
+		} 
+		catch (UserNotFoundException e) {
+			assertTrue(false);
+		}
 	}
 
 }

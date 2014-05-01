@@ -8,6 +8,7 @@ import java.util.Set;
  */
 public class Person {
 	private int id;
+
 	private Set<Person> friends;
 	
 	/**
@@ -64,6 +65,7 @@ public class Person {
 	}
 	
 	@Override
+
 	public String toString() {
 		return Integer.toString(id);
 	}
