@@ -35,6 +35,7 @@ public class Person {
 	 * @param people
 	 */
 	public void setFriends(Set<Person> people) {
+		if (people == null) { return; }
 		this.friends = people;
 	}
 	
@@ -54,6 +55,10 @@ public class Person {
 		return this.friends;
 	}
 	
+	/**
+	 * 
+	 * @return Number of friends Person has
+	 */
 	public int numberOfFriends() {
 		return this.friends.size();
 	}
