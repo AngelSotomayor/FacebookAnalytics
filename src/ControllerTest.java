@@ -78,7 +78,7 @@ public class ControllerTest {
 		l1.add(smallController.getPerson(2));
 		map.put(1.0, l1);
 		
-		assertEquals(map, smallController.getFriendRecommendations(0));
+		assertEquals(map, smallController.getTriadicRecommendations(0));
 	}
 	
 	@Test
@@ -93,12 +93,12 @@ public class ControllerTest {
 		l1.add(mediumController.getPerson(5));
 		map.put(0.5, l1);
 		
-		assertEquals(map, mediumController.getFriendRecommendations(1));
+		assertEquals(map, mediumController.getTriadicRecommendations(1));
 	}
 	
 //	@Test
 //	public void friendRecommendationsFacebookGraphUser0() throws UserNotFoundException {	
-//		System.out.println(facebookController.getFriendRecommendations(0));
+//		System.out.println(facebookController.getTriadicRecommendations(0));
 //	}
 	
 	@Test

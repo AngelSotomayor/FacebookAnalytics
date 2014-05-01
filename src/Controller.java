@@ -152,7 +152,14 @@ public class Controller {
 		
 	}
 	
-	public SortedMap<Double, Set<Person>> getFriendRecommendations(int id) throws UserNotFoundException {
+	public SortedMap<Double, Set<Person>> getCentralityRecommendations(int id) throws UserNotFoundException {
+		SortedMap<Double, Set<Person>> recommendations = new TreeMap<Double, Set<Person>>(new FriendRecommendationComparator());
+		Person p = this.getPerson(id);
+		
+		return recommendations;
+	}
+	
+	public SortedMap<Double, Set<Person>> getTriadicRecommendations(int id) throws UserNotFoundException {
 		Map<Person, Double> personMap = new HashMap<Person, Double>();
 		Person p = this.getPerson(id);
 		Set<Person> friends = p.getFriends();
