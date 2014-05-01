@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -68,12 +70,12 @@ public class ControllerTest {
 	
 	@Test
 	public void friendRecommendationsSmallGraphUser0() throws UserNotFoundException {
-		Map<Double, List<Person>> map = new HashMap<Double, List<Person>>();
-		List<Person> l0 = new ArrayList<Person>();
+		SortedMap<Double, Set<Person>> map = new TreeMap<Double, Set<Person>>();
+		Set<Person> l0 = new HashSet<Person>();
 		l0.add(smallController.getPerson(4));
 		map.put(0.5, l0);
 	
-		List<Person> l1 = new ArrayList<Person>();
+		Set<Person> l1 = new HashSet<Person>();
 		l1.add(smallController.getPerson(2));
 		map.put(1.0, l1);
 		
@@ -100,6 +102,26 @@ public class ControllerTest {
 //		for (Entry<Person, Double> e : clusteringController.centrality.entrySet()) {
 //			System.out.println (e.getKey() + " -> " + e.getValue());
 //		}
+
+	public void friendRecommendationsMediumGraphUser1() throws UserNotFoundException {
+		SortedMap<Double, Set<Person>> map = new TreeMap<Double, Set<Person>>();
+		Set<Person> l0 = new HashSet<Person>();
+		l0.add(mediumController.getPerson(8));
+		l0.add(mediumController.getPerson(4));
+		map.put(0.25, l0);
+	
+		Set<Person> l1 = new HashSet<Person>();
+		l1.add(mediumController.getPerson(5));
+		map.put(0.5, l1);
+		
+		assertEquals(map, mediumController.getFriendRecommendations(1));
+	}
+	
+//	@Test
+//	public void friendRecommendationsFacebookGraphUser0() throws UserNotFoundException {	
+//		System.out.println(facebookController.getFriendRecommendations(0));
 //	}
+	
+
 
 }
