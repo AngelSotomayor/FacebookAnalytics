@@ -1,11 +1,6 @@
 import static org.junit.Assert.*;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.SortedMap;
@@ -120,6 +115,18 @@ public class ControllerTest {
 //	@Test
 //	public void friendRecommendationsFacebookGraphUser0() throws UserNotFoundException {	
 //		System.out.println(facebookController.getTriadicRecommendations(0));
+//	}
+	
+	
+	/** commented because all fields and methods tested are private in Controller */
+//	@Test
+//	public void centralityTest() {
+//		this.clusteringController.calculateCentrality();
+//		assertEquals(new Double(0), this.clusteringController.centrality.get(new Person(2)));
+//		assertEquals(new Double(0), this.clusteringController.centrality.get(new Person(3)));
+//		assertEquals(new Double(0), this.clusteringController.centrality.get(new Person(4)));
+//		assertEquals(new Double(1), this.clusteringController.centrality.get(new Person(5)));
+//		assertEquals(new Double(7), this.clusteringController.centrality.get(new Person(1)));
 //	}
 	
 

@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.io.IOException;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -32,7 +31,6 @@ public class Controller {
 			Person p = entry.getValue();
 			this.centrality.put(p, new Double(0.0));
 		}
-//		calculateCentrality();
 	}
 
 	/**
@@ -156,6 +154,7 @@ public class Controller {
 	}
 	
 	public SortedMap<Double, Set<Person>> getCentralityRecommendations(int id) throws UserNotFoundException {
+		calculateCentrality();
 		SortedMap<Double, Set<Person>> recommendations = new TreeMap<Double, Set<Person>>(new FriendRecommendationComparator());
 		Person p = this.getPerson(id);
 		Set<Person> friends = p.getFriends();
