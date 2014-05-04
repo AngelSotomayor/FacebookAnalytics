@@ -163,14 +163,14 @@ public class Controller {
 		Set<Person> localBridges = new HashSet<Person>();
 		Person p = this.getPerson(id);
 		Set<Person> friends = p.getFriends();
-		Set<Person> allFriends = new HashSet<Person>(); // set of all friends of friends
+		Set<Person> allFriendsOfFriends = new HashSet<Person>(); // set of all friends of friends
 		
 		for (Person friend : friends) {
-			allFriends.addAll(friend.getFriends());
+			allFriendsOfFriends.addAll(friend.getFriends());
 		}
 		
 		for (Person friend : friends) {
-			if (!allFriends.contains(friend)) {
+			if (!allFriendsOfFriends.contains(friend)) {
 				localBridges.add(friend);
 			}
 		}
