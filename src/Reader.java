@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  * 
- * @author Fabio Fleitas & Shayan Patel
+ * @author Fabio Fleitas
  *
  */
 public class Reader {

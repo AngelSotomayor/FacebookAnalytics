@@ -13,8 +13,11 @@ import java.util.Stack;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-
-
+/**
+ * 
+ * @author Fabio Fleitas & Shayan Patel
+ *
+ */
 public class Controller {
 	
 	private Reader r;
@@ -178,6 +181,15 @@ public class Controller {
 		return localBridges;
 	}
 	
+	/**
+	 * Recommends friends based on the centrality.
+	 * The pool of potential recommendations comes from friends of friends.
+	 * If that Person has a high centrality, then it will be a high recommendation.
+	 * 
+	 * @param id
+	 * @return SortedMap from least recommended to most recommended
+	 * @throws UserNotFoundException
+	 */
 	public SortedMap<Double, Set<Person>> getCentralityRecommendations(int id) throws UserNotFoundException {
 		calculateCentrality();
 		SortedMap<Double, Set<Person>> recommendations = new TreeMap<Double, Set<Person>>(new FriendRecommendationComparator());
@@ -208,6 +220,16 @@ public class Controller {
 		return recommendations;
 	}
 	
+	/**
+	 * Recommends friends based on triadic closures. 
+	 * The more triadic closures a recommendation would close, the higher the recommendation.
+	 * So, if a lot of your friends are friends with a person you are not,
+	 * this method will highly recommend that person as a friend.
+	 * 
+	 * @param id
+	 * @return SortedMap from least recommended to most recommended
+	 * @throws UserNotFoundException
+	 */
 	public SortedMap<Double, Set<Person>> getTriadicRecommendations(int id) throws UserNotFoundException {
 		Map<Person, Double> personMap = new HashMap<Person, Double>();
 		Person p = this.getPerson(id);
@@ -247,6 +269,12 @@ public class Controller {
 		return recommendations;
 	}
 	
+	/**
+	 * Converts a inverts input map
+	 * 
+	 * @param personMap
+	 * @return SortedMap of triadic recommendations
+	 */
 	private SortedMap<Double, Set<Person>> convertFriendRecommendations(Map<Person, Double> personMap) {
 		SortedMap<Double, Set<Person>> recommendations = new TreeMap<Double, Set<Person>>(new FriendRecommendationComparator());
 		Set<Person> keySet = personMap.keySet();
@@ -266,6 +294,13 @@ public class Controller {
 		return recommendations;
 	}
 	
+	/**
+	 * Used for TreeMaps when creating a SortedMap
+	 * Compares Doubles
+	 * 
+	 * @author Fabio Fleitas
+	 *
+	 */
 	class FriendRecommendationComparator implements Comparator<Double> {
 
 		@Override
