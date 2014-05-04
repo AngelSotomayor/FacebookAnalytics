@@ -153,6 +153,31 @@ public class Controller {
 		
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @return Set of Person that are local bridges to Person id
+	 * @throws UserNotFoundException
+	 */
+	public Set<Person> getLocalBridges(int id) throws UserNotFoundException {
+		Set<Person> localBridges = new HashSet<Person>();
+		Person p = this.getPerson(id);
+		Set<Person> friends = p.getFriends();
+		Set<Person> allFriends = new HashSet<Person>(); // set of all friends of friends
+		
+		for (Person friend : friends) {
+			allFriends.addAll(friend.getFriends());
+		}
+		
+		for (Person friend : friends) {
+			if (!allFriends.contains(friend)) {
+				localBridges.add(friend);
+			}
+		}
+		
+		return localBridges;
+	}
+	
 	public SortedMap<Double, Set<Person>> getCentralityRecommendations(int id) throws UserNotFoundException {
 		calculateCentrality();
 		SortedMap<Double, Set<Person>> recommendations = new TreeMap<Double, Set<Person>>(new FriendRecommendationComparator());

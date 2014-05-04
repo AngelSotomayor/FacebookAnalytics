@@ -14,6 +14,7 @@ import org.junit.Test;
 public class ControllerTest {
 	Controller smallController;
 	Controller mediumController;
+	Controller wellController;
 	Controller facebookController;
 	Controller clusteringController;
 
@@ -21,6 +22,7 @@ public class ControllerTest {
 	public void setUp() throws Exception {
 		smallController = new Controller("small_graph.txt");
 		mediumController = new Controller("medium_graph.txt");
+		wellController = new Controller("well_connected_graph.txt");
 		facebookController = new Controller("facebook_combined.txt");
 		clusteringController = new Controller("clustering_coefficient_graph");
 	}
@@ -110,6 +112,41 @@ public class ControllerTest {
 		map.put(0.5, l1);
 		
 		assertEquals(map, mediumController.getTriadicRecommendations(1));
+	}
+	
+	@Test
+	public void localBridgesSmallGraph3() throws UserNotFoundException {
+		Set<Person> localBridges = new HashSet<Person>();
+		localBridges.add(smallController.getPerson(0));
+		localBridges.add(smallController.getPerson(2));
+		
+		assertEquals(localBridges, smallController.getLocalBridges(3));
+	}
+	
+	@Test
+	public void localBridgesMediumGraph3() throws UserNotFoundException {
+		Set<Person> localBridges = new HashSet<Person>();
+		localBridges.add(smallController.getPerson(0));
+		localBridges.add(smallController.getPerson(2));
+		
+		assertEquals(localBridges, smallController.getLocalBridges(3));
+	}
+	
+	@Test
+	public void localBridgesWellConnected5() throws UserNotFoundException {
+		Set<Person> localBridges = new HashSet<Person>();
+		localBridges.add(wellController.getPerson(4));
+		
+		assertEquals(localBridges, wellController.getLocalBridges(5));
+	}
+	
+	@Test
+	public void localBridgesWellConnected() throws UserNotFoundException {
+		Set<Person> localBridges = new HashSet<Person>();
+		localBridges.add(wellController.getPerson(3));
+		localBridges.add(wellController.getPerson(7));
+		
+		assertEquals(localBridges, wellController.getLocalBridges(2));
 	}
 	
 //	@Test
