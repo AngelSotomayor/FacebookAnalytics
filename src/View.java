@@ -7,14 +7,16 @@ import java.util.Map.Entry;
 
 public class View {
 	
+	// prints out the input options of the user
 	public static void showPrompt() {
-		System.out.println("Welcome to your friendly facebook analytics");
+		System.out.println("\nWelcome to your friendly facebook analytics");
 		System.out.println("Enter 1 to find how well a user's clustering coefficient");
 		System.out.println("Enter 2 to get friend recommendations for a user based on" +
-							" triadic closure \n(sorted by the number of traidic closures of a recommendation)");
+							" triadic closure \n(sorted in increasing order of the number of traidic closures of a recommendation)");
 		System.out.println("Enter 3 to get friend recommendations for a user based on " +
-						   "triadic closure \n (sorted by the centrality of each recommendation)");
-		System.out.println("Enter Q to quit\n");
+						   "triadic closure (sorted in increasing order of the centrality of each recommendation). ");
+		System.out.println("Enter 4 to find out which friends of a user serve as local bridges");
+		System.out.println("Enter Q to quit");
 	}
 	
 	public static void main(String[] args) {
@@ -41,6 +43,7 @@ public class View {
 			showPrompt();
 			String input = in.nextLine();
 			System.out.println("Please enter the user id");
+			
 			int user = Integer.parseInt(in.nextLine().trim());
 			if (input.equals("1")) {
 				try {
@@ -83,6 +86,22 @@ public class View {
 				catch (UserNotFoundException e) {
 					System.out.println("Sorry, there is no user with id " + user);
 				}
+			}
+			else if (input.equals("4")) {
+				Set<Person> friends;
+				try {
+					friends = c.getLocalBridges(user);
+					if (friends.size() == 0) {
+						System.out.println("User " + user + " has no friends who are local bridges");
+						continue;
+					}
+					for (Person p : friends) {
+						System.out.println(p.getId() + " is a local bridge");
+					}
+				} catch (UserNotFoundException e) {
+					System.out.println("Sorry, there is no user with id " + user);
+				}
+				
 			}
 			else if (input.equals("Q")) {
 				break;
