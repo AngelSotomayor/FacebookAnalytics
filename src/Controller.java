@@ -51,6 +51,12 @@ public class Controller {
 		return temp;
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @return clustering coefficient of the user with the inputted user id
+	 * @throws UserNotFoundException 
+	 */
 	public double getClusteringCoefficient(int id) throws UserNotFoundException {
 		Person user = this.graph.get(id);
 		if (user == null) {
@@ -78,6 +84,11 @@ public class Controller {
 		return (num / denom);
 	}
 	
+	/**
+	 * Calculates the betweenness centrality of all the nodes in the graph
+	 * All data stored in global map called centrality
+	 * Implementation based on: http://www.inf.uni-konstanz.de/algo/publications/b-fabc-01.pdf
+	 */
 	private void calculateCentrality() {
 		if (! this.centralityCalculated) {
 			for (Entry<Integer, Person> entry : this.graph.entrySet()) {
