@@ -47,9 +47,20 @@ public class View {
 		while (true) {
 			showPrompt();
 			String input = in.nextLine();
-			System.out.println("Please enter the user id");
+			if ("Q".equals(input)) {
+				break;
+			}
 			
-			int user = Integer.parseInt(in.nextLine().trim());
+			System.out.println("Please enter the user id");
+			int user;
+			try {
+				user = Integer.parseInt(in.nextLine().trim());
+			}
+			catch (NumberFormatException e) {
+				System.out.println("Please input a valid number representing the user id");
+				continue;
+			}
+			
 			if (input.equals("1")) {
 				try {
 					System.out.println("The clustering coefficient of user with id " +
@@ -107,9 +118,6 @@ public class View {
 					System.out.println("Sorry, there is no user with id " + user);
 				}
 				
-			}
-			else if (input.equals("Q")) {
-				break;
 			}
 			else {
 				System.out.println("You entered invalid input. Please try again");
