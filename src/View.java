@@ -18,7 +18,7 @@ public class View {
 		System.out.println("> Enter 2 to get friend recommendations for a user based on" +
 							" triadic closure \n(sorted in increasing order of the number of traidic closures of a recommendation)");
 		System.out.println("> Enter 3 to get friend recommendations for a user based on " +
-						   "triadic closure (sorted in increasing order of the centrality of each recommendation). ");
+						   "triadic closure \n(sorted in increasing order of the centrality of each recommendation). ");
 		System.out.println("> Enter 4 to find out which friends of a user serve as local bridges");
 		System.out.println("> Enter Q or q to quit");
 	}
