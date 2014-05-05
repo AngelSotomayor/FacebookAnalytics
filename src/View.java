@@ -77,7 +77,8 @@ public class View {
 					for (Entry<Double, Set<Person>> e : results.entrySet()) {
 						Set<Person> set = e.getValue();
 						for (Person x : set) {
-							System.out.println("Recommendation " + rec + " -> user with id " + x.getId());
+							System.out.println("Recommendation " + rec + " -> user with id " + x.getId()
+												+ " (number of triadic closures fulfilled = " + e.getKey() + ")");
 							rec++;
 						}
 					}
@@ -94,7 +95,8 @@ public class View {
 					for (Entry<Double, Set<Person>> e : results.entrySet()) {
 						Set<Person> set = e.getValue();
 						for (Person x : set) {
-							System.out.println("Recommendation " + rec + " -> user with id " + x.getId());
+							System.out.println("Recommendation " + rec + " -> user with id " + x.getId() 
+												+ " (with betweenness centrality = " + e.getKey() + ")");
 							rec++;
 						}
 					}
