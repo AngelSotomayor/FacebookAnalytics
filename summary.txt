@@ -1,0 +1,33 @@
+Facebook Graph Analysis Final Project
+NETS 150
+Fabio Fleitas & Shayan Patel
+
+Please look at "User Manual.pdf" for instructions on how to run the program as well as some screenshots of it. We have provided some graphs and recommend doing it on "facebook_combined.txt". Please note that some of the methods can take a few seconds to fully analyze and compute values from such a large data set.
+We built a command-line interface to make use of our project. This can be run in terminal with `java View` or in Eclipse by running the View.java file. See manual for more details.
+
+Overview of Project:
+We decided to build a Facebook Recommendation & Analysis system based off of the various graph algorithms taught in class. We took everything we learned about social networks & graph algorithms in class and implemented all possible algorithms with the data set given to us (facebook_combined.txt). We also built a command-line interace (CLI) to interact with our program (explained in "User Manual.pdf")
+
+Algorithms/Features of Project:
+* We created a Person class to represent the Facebook graph data, a Controller class to manipulate & analyze the data, a Reader class to read in the graph data, and a View class that acts as a CLI to interact with.
+
+* Controller does all of the data manipulation & analysis. In it we have a few algorithms:
+1) Clustering coefficient of a Person - given an input id of a Person, we ouput the clustering coefficient of that Person
+2) Calculate centrality of all Persons in graph - we calculate the centrality of every Person in the graph (to then do some friend recommendations based on that). Implementation of algorithm is based off of this paper: http://www.inf.uni-konstanz.de/algo/publications/b-fabc-01.pdf
+3) Finding local bridges - given a Person id, we can find any local bridges between that Person and a Friend.
+4) getCentralityRecommendations - we give triadic closure recommendations sorted based on the centrality of the Person. The higher the centrality, the more recommended that Person is to friend.
+5) getTriadicRecommendations - we give triadic closure recommendations sorted based on the number of closures that edge would create. In essence, if more of your friends are friends with that person, then it is a higher recommmendation.
+
+Work Breakdown
+Fabio:
+* Person class
+* Reader class
+* getLocalBridges method
+* getCentralityRecommendations method
+* getTriadicRecommendations method
+
+Shayan:
+* View class
+* getClusteringCoefficient method
+* calculateCentrality method
+* Wrote up "User Manual.pdf"
